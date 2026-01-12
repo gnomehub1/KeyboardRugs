@@ -235,8 +235,8 @@
         }
 
         .triangle-container {
-            position: relative; width: 500px; height: 500px;
-            display: flex; justify-content: center; align-items: center; margin-bottom: 80px;
+            position: relative; width: 500px; height: auto;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 80px;
         }
         
         .triangle {
@@ -535,10 +535,13 @@
                 </svg>
             </div>
             <div class="hero-rug-frame">
-                <img src="hero-rug.png" alt="Retro Rug Showcase" class="hero-rug-img">
+                <video src="hero-rug.mp4" class="hero-rug-img" autoplay loop muted playsinline></video>
+            </div>
+            <div class="hero-rug-frame" style="margin-top: 30px;">
+                <video src="hero-rug-2.mp4" class="hero-rug-img" autoplay loop muted playsinline></video>
             </div>
         </div>
-        <h1 id="hero-title" class="glitch-text">TUFTING NOSTÁLGICO</h1>
+        <h1 id="hero-title" class="glitch-text">KEYBOARD RUGS</h1>
         <p class="subtitle" id="hero-sub">Alfombras hechas a mano. Vibes retro, pixel art y pop culture para tu arcade base.</p>
         
         <a href="#gallery-start" class="btn-arcade">INSERT COIN TO START</a>
@@ -722,7 +725,7 @@
         // --- TRANSLATION DATA ---
         const content = {
             es: {
-                heroTitle: "TUFTING NOSTÁLGICO",
+                heroTitle: "KEYBOARD RUGS",
                 heroSub: "Alfombras hechas a mano. Vibes retro, pixel art y pop culture para tu arcade base.",
                 galleryTitle: "ELIGE TU PERSONAJE",
                 processTitle: "CÓMO JUGAR",
@@ -743,7 +746,7 @@
                 contactTitle: "¿CONTINUAR?"
             },
             en: {
-                heroTitle: "NOSTALGIC TUFTING",
+                heroTitle: "KEYBOARD RUGS",
                 heroSub: "Hand-made rugs. Retro vibes, pixel art, and pop culture for your arcade base.",
                 galleryTitle: "SELECT YOUR CHARACTER",
                 processTitle: "HOW TO PLAY",
