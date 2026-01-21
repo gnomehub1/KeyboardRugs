@@ -807,51 +807,74 @@
             }
         }
 
-        /* --- MOBILE PERFORMANCE OPTIMIZATIONS --- */
+        /* ================================================================================================
+           MOBILE BREAKPOINTS - ORGANIZED BY SCREEN SIZE
+           ================================================================================================
+           
+           This section contains 4 distinct breakpoints for different mobile screen sizes:
+           
+           1. 768px  - Tablets & Large Mobile Phones (Baseline with restored original sizes)
+           2. 425px  - Medium Mobile Phones (10% reduction from 768px)
+           3. 375px  - Small Mobile Phones - iPhone 6/7/8/X (10% reduction from 425px)
+           4. 320px  - Extra Small Mobile - iPhone SE, older Android (10% reduction from 375px)
+           
+           Each breakpoint cascades down with a 10% size reduction for typography.
+           Feel free to adjust individual breakpoints below as needed.
+           ================================================================================================ */
+
+        /* ================================================================================================
+           BREAKPOINT 1: TABLETS & LARGE MOBILE PHONES (≤768px)
+           ================================================================================================
+           Devices: iPad Mini, iPad, Large Android Tablets, Large Phones (landscape)
+           BASELINE SIZES - All original desktop sizes restored here
+           ================================================================================================ */
         @media (max-width: 768px) {
 
-            /* Ensure proper centering and padding on all mobile screens */
+            /* --- LAYOUT & SPACING --- */
             body {
                 padding: 0 15px;
+                /* Prevent content from touching screen edges */
             }
 
-            /* Increase nav padding to prevent overlap with floating video */
             nav {
                 padding: 15px 5%;
                 margin-bottom: 20px;
+                /* Prevent overlap with floating hero video */
             }
 
-            /* Reduce logo size on mobile */
-            .logo {
-                font-size: 0.9rem;
-            }
-
-            /* Make language toggle more compact */
-            .lang-toggle-container {
-                font-size: 0.6rem;
-            }
-
-            /* Add more vertical space to hero section */
             .hero {
                 min-height: 95vh;
                 padding: 40px 20px;
                 justify-content: space-evenly;
+                /* Better vertical spacing */
             }
 
-            /* Increase spacing between elements to prevent overlap */
+            /* --- NAVIGATION ELEMENTS --- */
+            .logo {
+                font-size: 1.0rem;
+                /* Slightly smaller than desktop (1.2rem) */
+            }
+
+            .lang-toggle-container {
+                font-size: 0.65rem;
+                /* Compact language switcher */
+            }
+
+            /* --- HERO SECTION --- */
             .triangle-container {
                 width: 380px;
                 height: 380px;
                 margin-bottom: 60px;
-                /* Increased from 80px to give more space */
+                /* Extra space for floating animation */
                 margin-top: 30px;
             }
 
             .hero-rug-frame {
                 width: 300px;
+                /* Reduced from 350px desktop size */
             }
 
-            /* Reduce float animation distance on mobile */
+            /* Reduce floating animation distance to prevent overlap */
             @keyframes float {
 
                 0%,
@@ -865,29 +888,37 @@
                 }
             }
 
-            /* Add more spacing to h1 title */
+            /* --- TYPOGRAPHY - RESTORED ORIGINAL SIZES (BASELINE) --- */
+            /* Main Hero Title - Original desktop size: 2.5rem */
             h1 {
-                font-size: 1.8rem;
+                font-size: 2.5rem;
+                /* RESTORED - This is the baseline for cascading */
                 margin-top: 40px;
-                /* Add top margin */
                 margin-bottom: 30px;
-                /* Increase bottom margin */
             }
 
-            /* Ensure subtitle has proper spacing */
+            /* Subtitle Text - Original desktop size: 1.4rem */
             p.subtitle {
-                font-size: 1.1rem;
+                font-size: 1.4rem;
+                /* RESTORED - Baseline size */
                 margin-bottom: 30px;
                 padding: 12px;
             }
 
-            /* Add spacing to button */
+            /* Section Headers (e.g., "ELIGE TU PERSONAJE") - Original: 1.5rem */
+            .section-header {
+                font-size: 1.5rem;
+                /* RESTORED - Baseline size */
+            }
+
+            /* Button Text */
             .btn-arcade {
                 padding: 15px 30px;
-                font-size: 0.85rem;
+                font-size: 0.9rem;
                 margin-top: 20px;
             }
 
+            /* --- LAYOUT ADJUSTMENTS --- */
             .process-step {
                 flex-direction: column;
                 text-align: center;
@@ -897,7 +928,7 @@
                 margin: 0 0 10px 0;
             }
 
-            /* Ensure grids don't break centering */
+            /* Ensure all containers stay centered */
             .gallery-container,
             .faq-container,
             .contact-container,
@@ -915,13 +946,12 @@
                 gap: 20px;
             }
 
-            /* Disable heavy animations on mobile */
+            /* --- PERFORMANCE OPTIMIZATIONS (ANIMATIONS DISABLED) --- */
             .star {
                 animation: none !important;
                 opacity: 0.6;
             }
 
-            /* Simplify star box-shadows (major performance improvement) */
             .star.small {
                 box-shadow: 0 0 2px #fff;
             }
@@ -934,74 +964,154 @@
                 box-shadow: 0 0 4px #fff;
             }
 
-            /* Hide extra stars on mobile (reduce from 80 to ~25) */
             .star:nth-child(n+26) {
                 display: none;
+                /* Show only 25 stars instead of 80 */
             }
 
-            /* Disable synthwave sun animation */
             .synthwave-sun {
                 animation: none !important;
                 opacity: 0.7;
                 box-shadow: 0 0 40px #ff00ff, 0 0 60px #ff1493;
             }
 
-            /* Slow down grid animation significantly */
             .grid {
                 animation: gridMove 40s linear infinite !important;
+                /* Slowed down from 15s */
             }
 
-            /* Disable vertical grid line animations */
             .grid-line-vertical {
                 animation: none !important;
                 opacity: 0.6;
             }
 
-            /* Hide extra vertical grid lines (reduce from 20 to 10) */
             .grid-line-vertical:nth-child(2n) {
                 display: none;
+                /* Show only 10 lines instead of 20 */
             }
 
-            /* Hide scanlines overlay on mobile (very expensive) */
             .scanlines {
                 display: none;
+                /* Hide expensive scanline effect */
             }
 
-            /* Disable triangle pulse animations */
             .triangle {
                 animation: none !important;
                 opacity: 0.8;
             }
 
-            /* Disable button blink animation */
             .btn-arcade {
                 animation: none !important;
+                /* Disable blink animation */
             }
 
-            /* Simplify gallery item hover effects */
             .gallery-item img {
                 filter: grayscale(0%);
+                /* Show images in full color */
             }
         }
 
-        /* --- EXTRA SMALL SCREENS (320px - 480px) --- */
-        @media (max-width: 480px) {
+        /* ================================================================================================
+           BREAKPOINT 2: MEDIUM MOBILE PHONES (≤425px)
+           ================================================================================================
+           Devices: iPhone 11/12/13 Pro Max, Galaxy S20+, Pixel 5, OnePlus 8
+           SIZE REDUCTION: 10% smaller than 768px baseline
+           ================================================================================================ */
+        @media (max-width: 425px) {
 
-            /* Further reduce sizes for very small screens */
+            /* --- LAYOUT & SPACING --- */
+            body {
+                padding: 0 12px;
+            }
+
+            nav {
+                padding: 12px 4%;
+            }
+
+            /* --- NAVIGATION ELEMENTS --- */
+            .logo {
+                font-size: 0.85rem;
+                /* Slightly smaller for medium phones */
+            }
+
+            .lang-toggle-container {
+                font-size: 0.58rem;
+            }
+
+            /* --- HERO SECTION --- */
+            .triangle-container {
+                width: 320px;
+                /* Reduced from 380px */
+                height: 320px;
+                margin-bottom: 55px;
+                margin-top: 25px;
+            }
+
+            .hero-rug-frame {
+                width: 260px;
+                /* Reduced from 300px */
+            }
+
+            /* --- TYPOGRAPHY - 10% REDUCTION FROM 768px BASELINE --- */
+            /* h1: 2.5rem × 0.9 = 2.25rem */
+            h1 {
+                font-size: 2.25rem;
+                /* 10% smaller than 2.5rem baseline */
+                margin-top: 35px;
+                margin-bottom: 28px;
+            }
+
+            /* subtitle: 1.4rem × 0.9 = 1.26rem */
+            p.subtitle {
+                font-size: 1.26rem;
+                /* 10% smaller than 1.4rem baseline */
+                padding: 11px;
+            }
+
+            /* section-header: 1.5rem × 0.9 = 1.35rem */
+            .section-header {
+                font-size: 1.35rem;
+                /* 10% smaller than 1.5rem baseline */
+            }
+
+            .btn-arcade {
+                padding: 14px 28px;
+                font-size: 0.85rem;
+            }
+
+            /* --- CONTAINER ADJUSTMENTS --- */
+            .gallery-container,
+            .faq-container,
+            .contact-container,
+            .process-container {
+                padding: 18px 8px;
+            }
+        }
+
+        /* ================================================================================================
+           BREAKPOINT 3: SMALL MOBILE PHONES (≤375px)
+           ================================================================================================
+           Devices: iPhone 6/7/8/X/11/12/13, Galaxy S10/S20, Pixel 4/5
+           SIZE REDUCTION: 10% smaller than 425px (which is already 10% smaller than 768px)
+           ================================================================================================ */
+        @media (max-width: 375px) {
+
+            /* --- LAYOUT & SPACING --- */
             body {
                 padding: 0 10px;
             }
 
             nav {
-                padding: 12px 3%;
+                padding: 10px 3%;
             }
 
+            /* --- NAVIGATION ELEMENTS --- */
             .logo {
                 font-size: 0.75rem;
             }
 
             .lang-toggle-container {
-                font-size: 0.55rem;
+                font-size: 0.52rem;
             }
 
             .switch {
@@ -1018,19 +1128,21 @@
                 transform: translateX(30px);
             }
 
-            /* Reduce hero section sizes */
+            /* --- HERO SECTION --- */
             .triangle-container {
                 width: 280px;
+                /* Reduced from 320px */
                 height: 280px;
                 margin-bottom: 50px;
                 margin-top: 20px;
             }
 
             .hero-rug-frame {
-                width: 240px;
+                width: 230px;
+                /* Reduced from 260px */
             }
 
-            /* Further reduce float animation */
+            /* Further reduce floating animation */
             @keyframes float {
 
                 0%,
@@ -1040,38 +1152,160 @@
 
                 50% {
                     transform: perspective(800px) rotateX(5deg) translateY(-10px);
+                    /* Reduced from -15px */
                 }
             }
 
+            /* --- TYPOGRAPHY - 10% REDUCTION FROM 425px --- */
+            /* h1: 2.25rem × 0.9 = 2.025rem */
             h1 {
-                font-size: 1.4rem;
-                margin-top: 30px;
+                font-size: 2.025rem;
+                /* 10% smaller than 2.25rem (425px size) */
+                margin-top: 32px;
                 margin-bottom: 25px;
-                padding: 0 10px;
+                padding: 0 8px;
             }
 
+            /* subtitle: 1.26rem × 0.9 = 1.134rem */
             p.subtitle {
-                font-size: 0.95rem;
+                font-size: 1.134rem;
+                /* 10% smaller than 1.26rem (425px size) */
                 padding: 10px;
                 margin-bottom: 25px;
             }
 
+            /* section-header: 1.35rem × 0.9 = 1.215rem */
+            .section-header {
+                font-size: 1.215rem;
+                /* 10% smaller than 1.35rem (425px size) */
+                padding: 0 8px;
+            }
+
             .btn-arcade {
                 padding: 12px 25px;
-                font-size: 0.7rem;
+                font-size: 0.75rem;
             }
 
-            .section-header {
-                font-size: 1.1rem;
-                padding: 0 10px;
-            }
-
-            /* Ensure containers are properly centered */
+            /* --- CONTAINER ADJUSTMENTS --- */
             .gallery-container,
             .faq-container,
             .contact-container,
             .process-container {
                 padding: 15px 5px;
+            }
+        }
+
+        /* ================================================================================================
+           BREAKPOINT 4: EXTRA SMALL MOBILE PHONES (≤320px)
+           ================================================================================================
+           Devices: iPhone SE (1st gen), older Android phones, compact devices
+           SIZE REDUCTION: 10% smaller than 375px (final cascade)
+           ================================================================================================ */
+        @media (max-width: 320px) {
+
+            /* --- LAYOUT & SPACING --- */
+            body {
+                padding: 0 8px;
+                /* Minimal padding for tiny screens */
+            }
+
+            nav {
+                padding: 8px 2%;
+            }
+
+            /* --- NAVIGATION ELEMENTS --- */
+            .logo {
+                font-size: 0.68rem;
+                /* Further reduced */
+            }
+
+            .lang-toggle-container {
+                font-size: 0.47rem;
+            }
+
+            .switch {
+                width: 45px;
+                height: 18px;
+            }
+
+            .slider:before {
+                height: 12px;
+                width: 12px;
+            }
+
+            input:checked+.slider:before {
+                transform: translateX(27px);
+            }
+
+            /* --- HERO SECTION --- */
+            .triangle-container {
+                width: 240px;
+                /* Reduced from 280px */
+                height: 240px;
+                margin-bottom: 45px;
+                margin-top: 15px;
+            }
+
+            .hero-rug-frame {
+                width: 200px;
+                /* Reduced from 230px */
+            }
+
+            /* Minimal floating animation for smallest screens */
+            @keyframes float {
+
+                0%,
+                100% {
+                    transform: perspective(800px) rotateX(5deg) translateY(0px);
+                }
+
+                50% {
+                    transform: perspective(800px) rotateX(5deg) translateY(-8px);
+                    /* Reduced from -10px */
+                }
+            }
+
+            /* --- TYPOGRAPHY - 10% REDUCTION FROM 375px (FINAL CASCADE) --- */
+            /* h1: 2.025rem × 0.9 = 1.823rem */
+            h1 {
+                font-size: 1.823rem;
+                /* 10% smaller than 2.025rem (375px size) */
+                margin-top: 28px;
+                margin-bottom: 22px;
+                padding: 0 5px;
+            }
+
+            /* subtitle: 1.134rem × 0.9 = 1.02rem */
+            p.subtitle {
+                font-size: 1.02rem;
+                /* 10% smaller than 1.134rem (375px size) */
+                padding: 8px;
+                margin-bottom: 22px;
+            }
+
+            /* section-header: 1.215rem × 0.9 = 1.094rem */
+            .section-header {
+                font-size: 1.094rem;
+                /* 10% smaller than 1.215rem (375px size) */
+                padding: 0 5px;
+            }
+
+            .btn-arcade {
+                padding: 10px 20px;
+                font-size: 0.65rem;
+            }
+
+            /* --- CONTAINER ADJUSTMENTS --- */
+            .gallery-container,
+            .faq-container,
+            .contact-container,
+            .process-container {
+                padding: 12px 3px;
+            }
+
+            .gallery-grid {
+                gap: 15px;
+                /* Reduce gap between items */
             }
         }
     </style>
