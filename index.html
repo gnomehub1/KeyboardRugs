@@ -1319,10 +1319,13 @@
         }
 
         .whatsapp-float img {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 20px rgba(37, 211, 102, 0.3);
+            /* ⚙️ ADJUST SIZE HERE - Change width & height to your preference */
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            /* Prevents stretching - keeps image proportions */
+            /* Drop-shadow follows the actual icon shape (not a circle) */
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 15px rgba(37, 211, 102, 0.4));
             transition: all 0.3s ease;
         }
 
@@ -1331,7 +1334,8 @@
         }
 
         .whatsapp-float:hover img {
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(37, 211, 102, 0.6);
+            /* Enhanced glow on hover - still follows icon shape */
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 25px rgba(37, 211, 102, 0.7));
         }
 
         /* Mobile adjustments for WhatsApp button */
@@ -1342,8 +1346,8 @@
             }
 
             .whatsapp-float img {
-                width: 60px;
-                height: 60px;
+                width: 100px;
+                height: 100px;
             }
         }
 
@@ -1354,8 +1358,8 @@
             }
 
             .whatsapp-float img {
-                width: 55px;
-                height: 55px;
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
