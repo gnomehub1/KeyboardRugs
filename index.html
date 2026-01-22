@@ -570,17 +570,55 @@
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
+            overflow: hidden;
+            /* Changed from auto to hidden for better gesture handling */
             background-color: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(5px);
         }
 
         .modal-content {
-            margin: 5% auto;
-            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             max-width: 80%;
+            max-height: 80vh;
+            object-fit: contain;
             border: 3px solid var(--neon-pink);
             box-shadow: 0 0 50px var(--neon-pink);
+            transition: transform 0.3s ease;
+            cursor: grab;
+            touch-action: none;
+            /* Prevents unwanted scrolling on mobile */
+        }
+
+        .modal-content:active {
+            cursor: grabbing;
+        }
+
+        .modal-content.zoomed {
+            cursor: move;
+        }
+
+        /* Modal responsive adjustments */
+        @media (max-width: 768px) {
+            .modal-content {
+                max-width: 90%;
+                max-height: 70vh;
+            }
+
+            .close-modal {
+                top: 10px;
+                right: 20px;
+                font-size: 35px;
+            }
+        }
+
+        @media (max-width: 425px) {
+            .modal-content {
+                max-width: 95%;
+                max-height: 65vh;
+            }
         }
 
         .close-modal {
@@ -592,11 +630,136 @@
             font-weight: bold;
             cursor: pointer;
             font-family: sans-serif;
+            z-index: 10000;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--neon-pink);
+        }
+
+        /* Navigation arrows */
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 50px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px 15px;
+            cursor: pointer;
+            user-select: none;
+            z-index: 10000;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .modal-nav:hover {
+            background: rgba(255, 0, 255, 0.3);
+            color: var(--neon-pink);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        .modal-nav.prev {
+            left: 20px;
+        }
+
+        .modal-nav.next {
+            right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .modal-nav {
+                font-size: 35px;
+                padding: 15px 10px;
+            }
+
+            .modal-nav.prev {
+                left: 10px;
+            }
+
+            .modal-nav.next {
+                right: 10px;
+            }
+        }
+
+        /* Image counter */
+        .modal-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--neon-cyan);
+            padding: 10px 20px;
+            font-family: var(--font-header);
+            font-size: 0.9rem;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            z-index: 10000;
+        }
+
+        @media (max-width: 768px) {
+            .modal-counter {
+                bottom: 20px;
+                font-size: 0.7rem;
+                padding: 8px 15px;
+            }
+        }
+
+        /* Zoom controls */
+        .modal-zoom-controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10000;
+        }
+
+        .zoom-btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border: 2px solid var(--neon-cyan);
+            padding: 10px 15px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: sans-serif;
+        }
+
+        .zoom-btn:hover {
+            background: rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        @media (max-width: 768px) {
+            .modal-zoom-controls {
+                top: 10px;
+                left: 10px;
+            }
+
+            .zoom-btn {
+                padding: 8px 12px;
+                font-size: 18px;
+            }
         }
 
         .modal-btn-container {
             text-align: center;
-            margin-top: 20px;
+            position: absolute;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+        }
+
+        @media (max-width: 768px) {
+            .modal-btn-container {
+                bottom: 70px;
+            }
         }
 
         /* --- TUTORIAL --- */
@@ -1434,11 +1597,11 @@
     <h2 class="section-header glitch-text" id="gallery-title">ELIGE TU PERSONAJE</h2>
     <div class="gallery-container">
         <div class="gallery-grid">
-            <div class="gallery-item" onclick="openModal(this)"><img src="mario.jpg" alt="Super Mario"></div>
-            <div class="gallery-item" onclick="openModal(this)"><img src="fightclub.jpg" alt="Fight Club"></div>
-            <div class="gallery-item" onclick="openModal(this)"><img src="adventure.jpg" alt="Adventure Time"></div>
-            <div class="gallery-item" onclick="openModal(this)"><img src="frog.jpg" alt="Frog"></div>
-            <div class="gallery-item" onclick="openModal(this)"><img src="bluecat.jpg" alt="Blue Cat"></div>
+            <div class="gallery-item" onclick="openModal(this)"><img src="sa1.png" alt="Super Mario"></div>
+            <div class="gallery-item" onclick="openModal(this)"><img src="sa2.png" alt="Fight Club"></div>
+            <div class="gallery-item" onclick="openModal(this)"><img src="sa3.png" alt="Adventure Time"></div>
+            <div class="gallery-item" onclick="openModal(this)"><img src="sa4.png" alt="Frog"></div>
+            <div class="gallery-item" onclick="openModal(this)"><img src="sa5.png" alt="Blue Cat"></div>
             <div class="gallery-item" onclick="openModal(this)"><img src="wallace.jpg" alt="William Wallace"></div>
             <div class="gallery-item" onclick="openModal(this)"><img src="hendrix.jpg" alt="Jimi Hendrix"></div>
             <div class="gallery-item" onclick="openModal(this)"><img src="sunsetcat.jpg" alt="Sunset Cat"></div>
@@ -1514,7 +1677,7 @@
 
     <h2 class="section-header glitch-text" id="contact-title">¿CONTINUAR?</h2>
     <div class="contact-container" id="contact">
-        <form action="https://formspree.io/f/meoyqawk" method="POST" enctype="multipart/form-data">
+        <form id="whatsapp-form" onsubmit="sendToWhatsApp(event)">
             <div class="form-group">
                 <label for="name">PLAYER NAME</label>
                 <input type="text" id="name" name="name" required>
@@ -1527,11 +1690,7 @@
                 <label for="message">MESSAGE / CUSTOM REQUEST</label>
                 <textarea id="message" name="message" rows="4" required></textarea>
             </div>
-            <div class="form-group">
-                <label for="attachment">UPLOAD CUSTOM DESIGN (OPTIONAL)</label>
-                <input type="file" id="attachment" name="attachment">
-            </div>
-            <button type="submit" class="btn-submit">START GAME (SEND)</button>
+            <button type="submit" class="btn-submit">START GAME (SEND TO WHATSAPP)</button>
         </form>
 
         <div class="social-links">
@@ -1542,11 +1701,30 @@
         </div>
     </div>
 
-    <div id="imgModal" class="modal" onclick="closeModal()">
-        <span class="close-modal">&times;</span>
+    <div id="imgModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+
+        <!-- Zoom Controls -->
+        <div class="modal-zoom-controls">
+            <button class="zoom-btn" onclick="zoomIn()">+</button>
+            <button class="zoom-btn" onclick="zoomOut()">-</button>
+            <button class="zoom-btn" onclick="resetZoom()">⟲</button>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="modal-nav prev" onclick="changeImage(-1)">‹</div>
+        <div class="modal-nav next" onclick="changeImage(1)">›</div>
+
+        <!-- Image -->
         <img class="modal-content" id="modalImg">
+
+        <!-- Image Counter -->
+        <div class="modal-counter" id="imageCounter">1 / 9</div>
+
+        <!-- CTA Button -->
         <div class="modal-btn-container">
-            <a href="#contact" class="btn-arcade" onclick="closeModal()">ORDER THIS SKIN</a>
+            <a href="https://wa.me/573202543585?text=Hi!%20I%27m%20interested%20in%20ordering%20this%20rug%20design.%20Can%20you%20provide%20more%20details%3F"
+                class="btn-arcade" target="_blank" rel="noopener noreferrer" onclick="closeModal()">ORDER THIS SKIN</a>
         </div>
     </div>
 
@@ -1631,7 +1809,12 @@
                 faqT6: "SYSTEM CARE", faqD6: "Evitar sol directo. No lavadora. Usar pañitos húmedos o aspiradora.",
                 faqT7: "RESOLUCIÓN", faqD7: "Estándar: 70cm x 100cm. Puede variar según diseño.",
                 faqT8: "PAGOS / CREDITS", faqD8: "Nequi, Daviplata, Bancolombia o Transferencia.",
-                contactTitle: "¿CONTINUAR?"
+                contactTitle: "¿CONTINUAR?",
+                // WhatsApp Messages ES
+                whatsappHeader: "🎮 *NUEVA ORDEN DE ALFOMBRA PERSONALIZADA* 🎮",
+                whatsappName: "👤 *Nombre:*",
+                whatsappEmail: "📧 *Email:*",
+                whatsappMessage: "💬 *Mensaje:*"
             },
             en: {
                 heroTitle: "KEYBOARD RUGS",
@@ -1652,11 +1835,35 @@
                 faqT6: "SYSTEM CARE", faqD6: "Avoid direct sun. No washing machine. Use wet wipes or vacuum.",
                 faqT7: "RESOLUTION", faqD7: "Standard: 70cm x 100cm. Varies by design.",
                 faqT8: "PAYMENT / CREDITS", faqD8: "Nequi, Daviplata, Bancolombia or Wire Transfer.",
-                contactTitle: "CONTINUE?"
+                contactTitle: "CONTINUE?",
+                // WhatsApp Messages EN
+                whatsappHeader: "🎮 *NEW CUSTOM RUG ORDER* 🎮",
+                whatsappName: "👤 *Name:*",
+                whatsappEmail: "📧 *Email:*",
+                whatsappMessage: "💬 *Message:*"
             }
         };
 
         let currentLang = 'es';
+
+        // --- AUTO-DETECT BROWSER LANGUAGE ON PAGE LOAD ---
+        function detectBrowserLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            // Check if browser is set to Spanish
+            if (browserLang.startsWith('es')) {
+                currentLang = 'es';
+                document.getElementById('lang-toggle-input').checked = false;
+            } else {
+                // Default to English for all other languages (more universal)
+                currentLang = 'en';
+                document.getElementById('lang-toggle-input').checked = true;
+            }
+            // Apply the detected language
+            toggleLanguage();
+        }
+
+        // Call auto-detection when page loads
+        window.addEventListener('DOMContentLoaded', detectBrowserLanguage);
 
         function toggleLanguage() {
             const toggleInput = document.getElementById('lang-toggle-input');
@@ -1688,18 +1895,264 @@
             document.documentElement.lang = currentLang;
         }
 
-        // --- MODAL LOGIC ---
+        // --- ADVANCED GALLERY MODAL LOGIC ---
+        let currentImageIndex = 0;
+        let galleryImages = [];
+        let currentZoom = 1;
+        let currentX = 0;
+        let currentY = 0;
+        let lastTapTime = 0;
+
+        // Initialize gallery images array
+        function initGallery() {
+            const galleryItems = document.querySelectorAll('.gallery-item img');
+            galleryImages = Array.from(galleryItems).map(img => img.src);
+        }
+
+        // Call on page load
+        window.addEventListener('DOMContentLoaded', initGallery);
+
+        // Open modal with specific image
         function openModal(element) {
             const modal = document.getElementById("imgModal");
             const modalImg = document.getElementById("modalImg");
             const img = element.querySelector('img');
 
+            // Find the index of clicked image
+            currentImageIndex = galleryImages.indexOf(img.src);
+
             modal.style.display = "block";
-            modalImg.src = img.src;
+            updateModalImage();
+            resetZoom();
+
+            // Add keyboard listener
+            document.addEventListener('keydown', handleKeyboard);
         }
 
+        // Close modal
         function closeModal() {
-            document.getElementById("imgModal").style.display = "none";
+            const modal = document.getElementById("imgModal");
+            modal.style.display = "none";
+            resetZoom();
+
+            // Remove keyboard listener
+            document.removeEventListener('keydown', handleKeyboard);
+        }
+
+        // Update displayed image and counter
+        function updateModalImage() {
+            const modalImg = document.getElementById("modalImg");
+            const counter = document.getElementById("imageCounter");
+
+            modalImg.src = galleryImages[currentImageIndex];
+            counter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+            resetZoom();
+        }
+
+        // Navigate images
+        function changeImage(direction) {
+            currentImageIndex += direction;
+
+            // Loop around
+            if (currentImageIndex >= galleryImages.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = galleryImages.length - 1;
+            }
+
+            updateModalImage();
+        }
+
+        // Keyboard navigation
+        function handleKeyboard(e) {
+            if (e.key === 'ArrowLeft') {
+                changeImage(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeImage(1);
+            } else if (e.key === 'Escape') {
+                closeModal();
+            } else if (e.key === '+' || e.key === '=') {
+                zoomIn();
+            } else if (e.key === '-' || e.key === '_') {
+                zoomOut();
+            } else if (e.key === '0') {
+                resetZoom();
+            }
+        }
+
+        // Zoom functions
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom + 0.25, 3);
+            applyZoom();
+        }
+
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom - 0.25, 0.5);
+            applyZoom();
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            currentX = 0;
+            currentY = 0;
+            applyZoom();
+        }
+
+        function applyZoom() {
+            const modalImg = document.getElementById("modalImg");
+            modalImg.style.transform = `translate(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px)) scale(${currentZoom})`;
+
+            if (currentZoom > 1) {
+                modalImg.classList.add('zoomed');
+            } else {
+                modalImg.classList.remove('zoomed');
+            }
+        }
+
+        // --- TOUCH GESTURES FOR MOBILE ---
+        const modalImg = document.getElementById("modalImg");
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let initialPinchDistance = 0;
+        let isPinching = false;
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+
+        // Touch start
+        modalImg.addEventListener('touchstart', function (e) {
+            if (e.touches.length === 2) {
+                // Pinch gesture
+                isPinching = true;
+                initialPinchDistance = getPinchDistance(e.touches);
+            } else if (e.touches.length === 1) {
+                // Single touch - check for double tap
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTapTime;
+
+                if (tapLength < 300 && tapLength > 0) {
+                    // Double tap
+                    if (currentZoom === 1) {
+                        currentZoom = 2;
+                    } else {
+                        resetZoom();
+                    }
+                    applyZoom();
+                }
+
+                lastTapTime = currentTime;
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+
+                if (currentZoom > 1) {
+                    isDragging = true;
+                    dragStartX = currentX;
+                    dragStartY = currentY;
+                }
+            }
+        }, { passive: true });
+
+        // Touch move
+        modalImg.addEventListener('touchmove', function (e) {
+            if (isPinching && e.touches.length === 2) {
+                // Pinch to zoom
+                const currentDistance = getPinchDistance(e.touches);
+                const zoomChange = currentDistance / initialPinchDistance;
+                currentZoom = Math.min(Math.max(zoomChange, 0.5), 3);
+                applyZoom();
+            } else if (e.touches.length === 1 && !isPinching) {
+                const touchX = e.touches[0].clientX;
+                const touchY = e.touches[0].clientY;
+                const deltaX = touchX - touchStartX;
+                const deltaY = touchY - touchStartY;
+
+                if (currentZoom > 1 && isDragging) {
+                    // Pan when zoomed
+                    currentX = dragStartX + deltaX;
+                    currentY = dragStartY + deltaY;
+                    applyZoom();
+                } else if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                    // Swipe to navigate
+                    if (deltaX > 0) {
+                        changeImage(-1);
+                    } else {
+                        changeImage(1);
+                    }
+                    touchStartX = touchX; // Reset to avoid multiple triggers
+                }
+            }
+        }, { passive: true });
+
+        // Touch end
+        modalImg.addEventListener('touchend', function (e) {
+            isPinching = false;
+            isDragging = false;
+        }, { passive: true });
+
+        // Helper function for pinch distance
+        function getPinchDistance(touches) {
+            const dx = touches[0].clientX - touches[1].clientX;
+            const dy = touches[0].clientY - touches[1].clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        // --- MOUSE DRAG FOR DESKTOP ---
+        let isMouseDragging = false;
+        let mouseStartX = 0;
+        let mouseStartY = 0;
+
+        modalImg.addEventListener('mousedown', function (e) {
+            if (currentZoom > 1) {
+                isMouseDragging = true;
+                mouseStartX = e.clientX - currentX;
+                mouseStartY = e.clientY - currentY;
+            }
+        });
+
+        document.addEventListener('mousemove', function (e) {
+            if (isMouseDragging && currentZoom > 1) {
+                e.preventDefault();
+                currentX = e.clientX - mouseStartX;
+                currentY = e.clientY - mouseStartY;
+                applyZoom();
+            }
+        });
+
+        document.addEventListener('mouseup', function () {
+            isMouseDragging = false;
+        });
+
+        // --- WHATSAPP FORM SUBMISSION ---
+        function sendToWhatsApp(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Get current language templates
+            const lang = content[currentLang];
+
+            // Format WhatsApp message using current language
+            let whatsappMessage = `${lang.whatsappHeader}\n\n`;
+            whatsappMessage += `${lang.whatsappName} ${name}\n`;
+            whatsappMessage += `${lang.whatsappEmail} ${email}\n\n`;
+            whatsappMessage += `${lang.whatsappMessage}\n${message}`;
+
+
+
+            // Encode the message for URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+
+            // WhatsApp URL with phone number and prefilled message
+            const whatsappURL = `https://wa.me/573202543585?text=${encodedMessage}`;
+
+            // Open WhatsApp in new tab
+            window.open(whatsappURL, '_blank');
+
+            // Optional: Clear form after submission
+            document.getElementById('whatsapp-form').reset();
         }
     </script>
 </body>
